@@ -4,7 +4,6 @@ const express           = require('express');
 const logger            = require('morgan');
 const path              = require('path');
 const bodyParser        = require('body-parser');
-const dotenv            = require('dotenv');
 const homeRoute         = require('./routes/home_route')
 const tasksRoute        = require('./routes/tasks_route')
 

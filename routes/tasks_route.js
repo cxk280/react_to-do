@@ -1,31 +1,19 @@
-const router = require('express').Router();
+const express     = require('express');
+const tasks       = express.Router();
 
-let taskData = [];
+/* get the database middleware */
+const db           = require('../models/task');
 
-// function addToTaskData(req,res,next) {
-//   taskData.push(req);
-//   next();
-// }
+/* convenience method for sending */
+const sendJSONresp = (req,res)=>res.json(res.rows)
 
-router.get('/', function(req,res) {
-  res.send('view task list')
-})
+tasks.route('/:taskID')
+  .put(db.updateTask, sendJSONresp)
+  .delete(db.deleteTask, (req,res)=>res.send(req.params.taskID))
 
-router.post('/', function(req,res) {
-  //pushes data into taskData
-  res.send(taskData)
-})
+tasks.route('/')
+  .get(db.getTasks, sendJSONresp)
+  .post(db.addTask, sendJSONresp)
 
-router.get('/:id', function(req,res) {
-  res.send(`view task ${req.params.id}`)
-})
 
-router.put('/:id', function(req,res) {
-  res.send(`edited task ${req.params.id}`)
-})
-
-router.delete('/:id', function(req,res) {
-  res.send(`deleted task ${req.params.id}`)
-})
-
-module.exports = router;
+module.exports = tasks;
