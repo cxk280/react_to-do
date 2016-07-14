@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 router.get('/', function(req,res) {
-  res.send('home GET connected')
+  res.send('homepage');
 })
 
 module.exports = router;
