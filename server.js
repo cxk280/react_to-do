@@ -1,27 +1,30 @@
 'use strict'
 
-const express           = require('express');
-const logger            = require('morgan');
-const path              = require('path');
-const bodyParser        = require('body-parser');
-const homeRoute         = require('./routes/home_route')
-const tasksRoute        = require('./routes/tasks_route')
-
 const env         = process.env.NODE_ENV || 'development';
 const DEV         = env==='development';
 const dotenv      = (DEV) ? require('dotenv').config() : undefined;
+const bodyParser  = require('body-parser');
 
-const app               = express();
-const port              = process.argv[2] || process.env.PORT || 3009;
+const express     = require('express');
+const logger      = require('morgan');
+const path        = require('path');
 
-app.use(logger('dev'));
-app.use( bodyParser.json());
+const app         = express();
+const PORT        = process.argv[2] || process.env.port || 3009;
 
-app.use('/', homeRoute);
-app.use('/tasks', tasksRoute);
+const taskRoutes  = require('./routes/tasks_route');
 
-app.listen(port, function() {
-  console.log('Server is listening on ', port);
+// set up some logging
+app.use( logger( 'dev') );
+app.use(bodyParser.json());
+
+app.use( '/tasks', taskRoutes );
+
+// Let's go!
+app.listen(PORT , ()=>
+  console.log(`server here! listening on`, PORT )
+)
+
+app.get('/', (req,res)=>{
+  res.send('home')
 })
-
-

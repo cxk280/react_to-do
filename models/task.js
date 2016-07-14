@@ -34,8 +34,8 @@ module.exports = {
     _db.any(
       `INSERT INTO
       tasks (task_name, task_desc)
-      VALUES ( $/name/, $/desc/ )
-      returning *;` , req.body
+      VALUES ( $1, $2 )
+      returning *;` , [req.body.name, req.body.desc]
       )
       .then( task=>{
         console.log('ADDED TASK SUCCESSFUL');
