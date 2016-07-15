@@ -3,6 +3,8 @@
 // import the libs we need
 import React            from 'react';
 import ReactDOM         from 'react-dom'
+import Nav              from './Nav.jsx'
+import Footer           from './Footer.jsx'
 
 // create a React Component called _App_
 export default class App extends React.Component{
@@ -27,13 +29,14 @@ export default class App extends React.Component{
         return(
             <container>
                 <header>
-                    <p>Hello world example</p>
+                    < Nav />
                 </header>
                 <div className="container">
                     <div className="row">
                     {/*everything goes in here*/}
                     </div>
                 </div>
+            <Footer />
             </container>
         )
     }
